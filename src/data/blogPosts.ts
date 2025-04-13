@@ -27,7 +27,7 @@ export const blogPosts: BlogPost[] = [
       <p>The lines between traditional imaging modalities (X-ray, CT, MRI, ultrasound) will continue to blur as integrated systems combine multiple techniques into single examinations. These hybrid approaches will provide complementary information, enhancing diagnostic accuracy while reducing the need for multiple separate tests.</p>
       
       <h2>Conclusion</h2>
-      <p>The future of medical imaging looks incredibly promising, with technologies that will enhance diagnostic capabilities while improving accessibility and patient experience. At Eldaka Health, we remain committed to bringing these innovations to healthcare providers worldwide, ensuring that patients everywhere benefit from the latest advances in medical technology.</p>
+      <p>The future of medical imaging looks incredibly promising, with technologies that will enhance diagnostic capabilities while improving accessibility and patient experience. At EldekaHealth, we remain committed to bringing these innovations to healthcare providers worldwide, ensuring that patients everywhere benefit from the latest advances in medical technology.</p>
     `,
     image: "https://images.unsplash.com/photo-1530497610245-94d3c16cda28?w=800&auto=format&fit=crop",
     date: "April 1, 2025",
@@ -62,7 +62,7 @@ export const blogPosts: BlogPost[] = [
       <p>Advances in telecommunications and robotic control are making remote surgery increasingly feasible. This technology has profound implications for providing surgical expertise to underserved regions and responding to emergencies in locations where specialist surgeons are unavailable.</p>
       
       <h2>Conclusion</h2>
-      <p>As surgical robotics continues to evolve, we can expect these systems to become more accessible, versatile, and capable. At Eldaka Health, we're committed to bringing these innovations to healthcare providers worldwide, ensuring that more patients can benefit from the precision and reduced recovery times that robotic surgery offers.</p>
+      <p>As surgical robotics continues to evolve, we can expect these systems to become more accessible, versatile, and capable. At EldekaHealth, we're committed to bringing these innovations to healthcare providers worldwide, ensuring that more patients can benefit from the precision and reduced recovery times that robotic surgery offers.</p>
     `,
     image: "https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=800&auto=format&fit=crop",
     date: "March 25, 2025",
@@ -132,7 +132,7 @@ export const blogPosts: BlogPost[] = [
       </ul>
       
       <h2>Conclusion</h2>
-      <p>At Eldaka Health, we offer a comprehensive range of ultrasound systems to meet diverse clinical needs and budgets. Our experts can help you evaluate these factors in light of your specific practice requirements, ensuring you make an investment that delivers clinical value for years to come.</p>
+      <p>At EldekaHealth, we offer a comprehensive range of ultrasound systems to meet diverse clinical needs and budgets. Our experts can help you evaluate these factors in light of your specific practice requirements, ensuring you make an investment that delivers clinical value for years to come.</p>
     `,
     image: "https://images.unsplash.com/photo-1578343552605-8f6bf4f728f3?w=800&auto=format&fit=crop",
     date: "March 18, 2025",

@@ -19,7 +19,7 @@ const Hero = () => {
               Advanced <span className="text-medical-600">Healthcare Technology</span> for Medical Excellence
             </h1>
             <p className="text-lg text-gray-600 mb-8 max-w-lg">
-              Eldaka Health delivers cutting-edge medical equipment, comprehensive solutions, and exceptional support to elevate healthcare standards across Libya.
+              EldekaHealth delivers cutting-edge medical equipment, comprehensive solutions, and exceptional support to elevate healthcare standards across Libya.
             </p>
             <div className="flex flex-wrap gap-4">
               <Button asChild size="lg" className="bg-medical-600 hover:bg-medical-700">

@@ -104,12 +104,12 @@ const Navbar = () => {
           <div className="flex items-center">
             <Link to="/" className="flex-shrink-0 flex items-center">
               <img
-                src="/lovable-uploads/81d0bbd7-1d17-4b9c-b3ed-62f66bc737be.png"
-                alt="Eldaka Health Logo"
+                src="/assets/images/81d0bbd7-1d17-4b9c-b3ed-62f66bc737be.png"
+                alt="EldekaHealth Logo"
                 className="h-14 w-auto"
               />
               <span className="text-2xl font-bold text-medical-600 ml-2">
-                Eldaka <span className="text-gray-800">Health</span>
+                Eldeka<span className="text-gray-800">Health</span>
               </span>
             </Link>
           </div>

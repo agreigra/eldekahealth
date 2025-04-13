@@ -14,7 +14,7 @@ const About = () => {
         <section className="bg-gradient-to-r from-medical-50 to-medical-100 py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl">
-              <h1 className="text-4xl md:text-5xl font-bold mb-6">About Eldaka Health</h1>
+              <h1 className="text-4xl md:text-5xl font-bold mb-6">About EldekaHealth</h1>
               <p className="text-xl text-gray-700">
                 Leading the way in medical equipment distribution across Libya, committed to enhancing healthcare standards through quality and innovation.
               </p>
@@ -29,7 +29,7 @@ const About = () => {
               <div>
                 <h2 className="text-3xl font-bold mb-6">Our Story</h2>
                 <p className="text-gray-600 mb-4">
-                  Founded in 2010, Eldaka Health has grown to become a trusted name in Libya's healthcare sector. We started with a simple mission: to bridge the gap between global medical technology innovations and Libyan healthcare providers.
+                  Founded in 2010, EldekaHealth has grown to become a trusted name in Libya's healthcare sector. We started with a simple mission: to bridge the gap between global medical technology innovations and Libyan healthcare providers.
                 </p>
                 <p className="text-gray-600 mb-4">
                   Over the years, we have established strong partnerships with world-renowned medical equipment manufacturers, allowing us to provide high-quality products to hospitals, clinics, and healthcare facilities across Libya.
@@ -41,7 +41,7 @@ const About = () => {
               <div className="rounded-lg overflow-hidden shadow-xl">
                 <img 
                   src="https://images.unsplash.com/photo-1504439468489-c8920d796a29?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80" 
-                  alt="Eldaka Health team" 
+                  alt="EldekaHealth team" 
                   className="w-full h-auto"
                 />
               </div>

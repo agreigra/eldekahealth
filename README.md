@@ -1,73 +1,100 @@
-# Welcome to your Lovable project
+# 🏥 Eldeka Health – Frontend
 
-## Project info
+This is the frontend web application for **Eldeka Health**, a Libyan healthcare company inspired by [Emitac Healthcare](https://emitachealthcare.com). The website includes a dynamic equipment catalog, blog section, and a clean, responsive UI for showcasing medical devices and consumables.
 
-**URL**: https://lovable.dev/projects/8fa0bc12-2f8e-4645-849e-138aa5595661
+---
 
-## How can I edit this code?
+## 🔧 Tech Stack
 
-There are several ways of editing your application.
+- ⚛️ **React.js** (via Vite)
+- 🎨 **Tailwind CSS** (utility-first styling)
+- 🔄 **API Ready** (Spring Boot or Supabase)
+- 📦 **Axios** (or Supabase client)
 
-**Use Lovable**
+---
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/8fa0bc12-2f8e-4645-849e-138aa5595661) and start prompting.
+## 📁 Project Structure
 
-Changes made via Lovable will be committed automatically to this repo.
+src/ ├── assets/ # Images and logos ├── components/ # Reusable UI components (Navbar, Footer, Cards, etc.) ├── pages/ # Page-level components (Home, Blog, Catalog, etc.) ├── services/ # API clients and utilities ├── styles/ # Custom/global CSS if needed ├── App.jsx # Main application component └── main.jsx # Entry point for the app
 
-**Use your preferred IDE**
+---
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 🚀 Getting Started
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### 1. Clone the repository
 
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```bash
+git clone https://github.com/agreigra/eldakahealth-frontend.git
+cd eldakahealth-frontend
 ```
 
-**Edit a file directly in GitHub**
+### 2. Install dependencies
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+```bash
+npm install
+```
 
-**Use GitHub Codespaces**
+### 3. Start development server
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+```bash
+npm run dev
+Visit: http://localhost:8080
 
-## What technologies are used for this project?
+```
 
-This project is built with:
+## 🔌 Backend Integration
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+This frontend is designed to connect with your backend services:
 
-## How can I deploy this project?
+🧠 Spring Boot API: Custom backend managing users, blog posts, and medical equipment.
 
-Simply open [Lovable](https://lovable.dev/projects/8fa0bc12-2f8e-4645-849e-138aa5595661) and click on Share -> Publish.
+Update your API base URL in src/services/api.js:
 
-## Can I connect a custom domain to my Lovable project?
+export const API_BASE_URL = 'http://localhost:8080/api'; // or your production backend
+🌟 Features
 
-Yes it is!
+- 🏥 Equipment & Consumables Catalog
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+- 📝 Blog with Admin/Editor Controls
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+- 🔐 Authentication (JWT or Supabase)
+
+- 📱 Mobile-Responsive Design
+
+- 🧭 SEO-Friendly & Fast Performance
+
+- 🧰 Easily Extendable Component System
+
+## 🧪 Building for Production
+
+To build an optimized version:
+
+npm run build
+
+To preview locally:
+
+npm run preview
+Then deploy the /dist folder to your preferred hosting platform.
+
+🚀 Deployment Options
+Vercel
+
+Netlify
+
+Firebase Hosting
+
+GitHub Pages (requires setup)
+
+📄 License
+This project is licensed under the MIT License. Feel free to use, modify, and distribute.
+
+🙌 Credits
+Built with ❤️ by the EldekaHealth team.
+
+Inspired by Emitac Healthcare Solutions
+
+---
+
+```
+
+```

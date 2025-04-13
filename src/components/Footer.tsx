@@ -10,7 +10,7 @@ const Footer = () => {
           
           {/* Company Info */}
           <div>
-            <h3 className="text-xl font-bold mb-6">Eldaka Health</h3>
+            <h3 className="text-xl font-bold mb-6">EldekaHealth</h3>
             <p className="text-gray-300 mb-4">Leading Libyan company specialized in importing and distributing high-quality medical equipment and consumables.</p>
             <div className="flex space-x-4 mt-6">
               <a href="#" className="text-gray-300 hover:text-medical-400 transition-colors">
@@ -92,7 +92,7 @@ const Footer = () => {
         
         {/* Copyright */}
         <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400 text-sm">
-          <p>&copy; {new Date().getFullYear()} Eldaka Health. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} EldekaHealth. All rights reserved.</p>
         </div>
       </div>
     </footer>

@@ -53,7 +53,6 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				// Custom colors for Eldaka Health based on logo
 				medical: {
 					50: '#edfbfd',
 					100: '#d0f4f8',

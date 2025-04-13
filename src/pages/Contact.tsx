@@ -115,7 +115,7 @@ const Contact = () => {
                     style={{ border: 0 }} 
                     allowFullScreen 
                     loading="lazy"
-                    title="Eldaka Health Location"
+                    title="EldekaHealth Location"
                   ></iframe>
                 </div>
               </div>

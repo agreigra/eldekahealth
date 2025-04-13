@@ -48,7 +48,7 @@ const SolutionsOverview = () => {
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-gray-900 mb-4">Comprehensive Healthcare Solutions</h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Eldaka Health provides complete medical solutions across multiple specialties, partnering with globally renowned manufacturers to deliver excellence in healthcare.
+            EldekaHealth provides complete medical solutions across multiple specialties, partnering with globally renowned manufacturers to deliver excellence in healthcare.
           </p>
         </div>
         

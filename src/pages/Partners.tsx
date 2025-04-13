@@ -23,7 +23,7 @@ const Partners = () => {
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h2 className="text-2xl font-bold mb-4">Strategic Partnerships That Drive Innovation</h2>
           <p className="text-gray-600">
-            At Eldaka Health, we believe that partnerships are the foundation of our success. By working with industry-leading manufacturers, we ensure that our clients have access to the most advanced medical equipment and solutions available today.
+            At EldkaHealth, we believe that partnerships are the foundation of our success. By working with industry-leading manufacturers, we ensure that our clients have access to the most advanced medical equipment and solutions available today.
           </p>
         </div>
         
