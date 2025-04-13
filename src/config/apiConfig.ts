@@ -18,4 +18,9 @@ export const API_CONFIG = {
   }
 };
 
+
+ // Helper function to get the API base URL with consistent format
+ export const getApiBaseUrl = () => {
+  return API_CONFIG.BASE_URL;
+};
 export default API_CONFIG;

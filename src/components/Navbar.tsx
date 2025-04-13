@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Menu, X, ChevronDown, LogIn, User, Shield } from "lucide-react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Menu, X, ChevronDown, LogIn, User, Shield, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   useGetCurrentUserQuery,
@@ -15,10 +15,13 @@ const Navbar = () => {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-  const { data: user, refetch } = useGetCurrentUserQuery(undefined,  {skip: skipQuery});
+  const { data: user, refetch } = useGetCurrentUserQuery(undefined, {
+    skip: skipQuery,
+  });
   const [logout, ref] = useLogoutMutation();
   const navigate = useNavigate();
   const { toast } = useToast();
+  const location = useLocation();
 
   const isAdmin = () => {
     return user?.role === "ADMIN";
@@ -46,7 +49,20 @@ const Navbar = () => {
     }
   };
 
+  const isMenuItemActive = (path: string) => {
+    if (path === "/") {
+      return location.pathname === "/";
+    }
+    return location.pathname.startsWith(path);
+  };
+
   const navItems = [
+    {
+      name: "Home",
+      link: "/",
+      hasDropdown: false,
+      icon: <Home className="mr-1 h-4 w-4" />,
+    },
     {
       name: "Products",
       link: "/products",
@@ -104,18 +120,28 @@ const Navbar = () => {
               <div key={item.name} className="relative group">
                 {item.hasDropdown ? (
                   <button
-                    className="text-gray-700 hover:text-medical-600 px-3 py-2 rounded-md text-sm font-medium flex items-center"
+                    className={`text-gray-700 hover:text-medical-600 px-3 py-2 rounded-md text-sm font-medium flex items-center ${
+                      isMenuItemActive(item.link)
+                        ? "text-medical-600 font-semibold border-b-2 border-medical-600"
+                        : ""
+                    }`}
                     onClick={() => toggleDropdown(item.name)}
                     onMouseEnter={() => setActiveDropdown(item.name)}
                   >
+                    {item.icon && item.icon}
                     {item.name}
                     <ChevronDown className="ml-1 h-4 w-4" />
                   </button>
                 ) : (
                   <Link
                     to={item.link}
-                    className="text-gray-700 hover:text-medical-600 px-3 py-2 rounded-md text-sm font-medium"
+                    className={`text-gray-700 hover:text-medical-600 px-3 py-2 rounded-md text-sm font-medium flex items-center ${
+                      isMenuItemActive(item.link)
+                        ? "text-medical-600 font-semibold border-b-2 border-medical-600"
+                        : ""
+                    }`}
                   >
+                    {item.icon && item.icon}
                     {item.name}
                   </Link>
                 )}
@@ -132,7 +158,11 @@ const Navbar = () => {
                         <Link
                           key={dropdownItem.name}
                           to={dropdownItem.link}
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-medical-50 hover:text-medical-600"
+                          className={`block px-4 py-2 text-sm text-gray-700 hover:bg-medical-50 hover:text-medical-600 ${
+                            isMenuItemActive(dropdownItem.link)
+                              ? "bg-medical-50 text-medical-600 font-medium"
+                              : ""
+                          }`}
                         >
                           {dropdownItem.name}
                         </Link>
@@ -149,7 +179,11 @@ const Navbar = () => {
                   <Button
                     asChild
                     variant="outline"
-                    className="border-medical-600 text-medical-600"
+                    className={`border-medical-600 ${
+                      isMenuItemActive("/admin")
+                        ? "bg-medical-50 text-medical-700"
+                        : "text-medical-600"
+                    }`}
                   >
                     <Link to="/admin">
                       <Shield className="mr-2 h-4 w-4" />
@@ -169,7 +203,9 @@ const Navbar = () => {
             ) : (
               <Button
                 asChild
-                className="bg-medical-600 hover:bg-medical-700 ml-2"
+                className={`bg-medical-600 hover:bg-medical-700 ml-2 ${
+                  isMenuItemActive("/login") ? "ring-2 ring-medical-300" : ""
+                }`}
               >
                 <Link to="/login">
                   <User className="mr-2 h-4 w-4" />
@@ -206,9 +242,16 @@ const Navbar = () => {
                   <div>
                     <button
                       onClick={() => toggleDropdown(item.name)}
-                      className="text-gray-700 hover:text-medical-600 hover:bg-gray-50 block px-3 py-2 rounded-md text-base font-medium w-full text-left flex justify-between items-center"
+                      className={`text-gray-700 hover:text-medical-600 hover:bg-gray-50 block px-3 py-2 rounded-md text-base font-medium w-full text-left flex justify-between items-center ${
+                        isMenuItemActive(item.link)
+                          ? "text-medical-600 bg-gray-50 font-medium"
+                          : ""
+                      }`}
                     >
-                      {item.name}
+                      <span className="flex items-center">
+                        {item.icon && item.icon}
+                        {item.name}
+                      </span>
                       <ChevronDown
                         className={`ml-1 h-4 w-4 transition-transform ${
                           activeDropdown === item.name ? "rotate-180" : ""
@@ -221,7 +264,11 @@ const Navbar = () => {
                           <Link
                             key={dropdownItem.name}
                             to={dropdownItem.link}
-                            className="text-gray-600 hover:text-medical-600 hover:bg-gray-50 block px-3 py-2 rounded-md text-sm"
+                            className={`text-gray-600 hover:text-medical-600 hover:bg-gray-50 block px-3 py-2 rounded-md text-sm ${
+                              isMenuItemActive(dropdownItem.link)
+                                ? "text-medical-600 bg-gray-50 font-medium"
+                                : ""
+                            }`}
                             onClick={() => setIsMenuOpen(false)}
                           >
                             {dropdownItem.name}
@@ -233,9 +280,14 @@ const Navbar = () => {
                 ) : (
                   <Link
                     to={item.link}
-                    className="text-gray-700 hover:text-medical-600 hover:bg-gray-50 block px-3 py-2 rounded-md text-base font-medium"
+                    className={`text-gray-700 hover:text-medical-600 hover:bg-gray-50 block px-3 py-2 rounded-md text-base font-medium flex items-center ${
+                      isMenuItemActive(item.link)
+                        ? "text-medical-600 bg-gray-50 font-medium"
+                        : ""
+                    }`}
                     onClick={() => setIsMenuOpen(false)}
                   >
+                    {item.icon && item.icon}
                     {item.name}
                   </Link>
                 )}
@@ -247,7 +299,9 @@ const Navbar = () => {
                 {isAdmin() && (
                   <Link
                     to="/admin"
-                    className="text-medical-600 hover:text-medical-700 hover:bg-gray-50 flex items-center px-3 py-2 rounded-md text-base font-medium"
+                    className={`text-medical-600 hover:text-medical-700 hover:bg-gray-50 flex items-center px-3 py-2 rounded-md text-base font-medium ${
+                      isMenuItemActive("/admin") ? "bg-gray-50 font-medium" : ""
+                    }`}
                     onClick={() => setIsMenuOpen(false)}
                   >
                     <Shield className="mr-2 h-4 w-4" />

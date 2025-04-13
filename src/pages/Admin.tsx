@@ -6,6 +6,7 @@ import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { LogOut } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useGetCurrentUserQuery, useLogoutMutation } from '@/services/authenticationApi';
+import Navbar from '@/components/Navbar';
 
 const Admin = () => {
   const token =
@@ -30,11 +31,13 @@ const Admin = () => {
   const getCurrentTab = () => {
     if (location.pathname.includes('/admin/products')) return 'products';
     if (location.pathname.includes('/admin/blogs')) return 'blogs';
+    if (location.pathname.includes('/admin/users')) return 'users';
     return 'dashboard';
   };
 
   return (
     <div className="min-h-screen bg-gray-50">
+       <Navbar />
       <header className="bg-white shadow border-b">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center">
@@ -54,7 +57,7 @@ const Admin = () => {
 
       <div className="container mx-auto px-4 py-6">
         <Tabs value={getCurrentTab()} className="mb-8">
-          <TabsList className="grid w-full grid-cols-3">
+          <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger 
               value="dashboard" 
               onClick={() => navigate('/admin')}
@@ -76,6 +79,13 @@ const Admin = () => {
             >
               Blog Posts
             </TabsTrigger>
+            <TabsTrigger 
+               value="users" 
+               onClick={() => navigate('/admin/users')}
+               className={location.pathname.includes('/admin/users') ? 'data-[state=active]:bg-medical-600 data-[state=active]:text-white' : ''}
+             >
+               Users
+             </TabsTrigger>
           </TabsList>
         </Tabs>
 

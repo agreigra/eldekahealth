@@ -26,6 +26,9 @@ import AdminProducts from "./pages/AdminProducts";
 import AdminBlogs from "./pages/AdminBlogs";
 import ProductForm from "./pages/admin/ProductForm";
 import BlogForm from "./pages/admin/BlogForm";
+import Navbar from "./components/Navbar";
+import AdminUsers from "./pages/AdminUsers";
+import UserForm from "./pages/admin/UserForm";
 
 const queryClient = new QueryClient();
 
@@ -47,8 +50,8 @@ const App = () => (
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:postId" element={<BlogSingle />} />
               <Route path="/partners" element={<Partners />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
+              <Route path="/login" element={<><Navbar /><Login /></>} />
+               <Route path="/register" element={<><Navbar /><Register /></>} />
               
               {/* Admin Routes */}
               <Route path="/admin" element={
@@ -63,6 +66,9 @@ const App = () => (
                 <Route path="blogs" element={<AdminBlogs />} />
                 <Route path="blogs/new" element={<BlogForm />} />
                 <Route path="blogs/:blogId" element={<BlogForm />} />
+                <Route path="users" element={<AdminUsers />} />
+                 <Route path="users/new" element={<UserForm />} />
+                 <Route path="users/:userId" element={<UserForm />} />
               </Route>
               
               {/* Catch-all route */}
