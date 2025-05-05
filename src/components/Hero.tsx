@@ -3,7 +3,43 @@ import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import { useEffect, useState } from 'react';
+
+const heroImages = [
+  {
+    src: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1974&auto=format&fit=crop",
+    alt: "Medical professional using technology"
+  },
+  {
+    src: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?q=80&w=1974&auto=format&fit=crop",
+    alt: "Healthcare technology in use"
+  },
+  {
+    src: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?q=80&w=1974&auto=format&fit=crop",
+    alt: "Advanced medical display systems"
+  }
+];
+
 const Hero = () => {
+  const [api, setApi] = useState<{ scrollNext: () => void } | null>(null);
+   
+   // Set up auto-rotation timer
+   useEffect(() => {
+     if (!api) return;
+     
+     const interval = setInterval(() => {
+       api.scrollNext();
+     }, 5000);
+     
+     return () => clearInterval(interval);
+   }, [api]);
   return (
     <div className="relative overflow-hidden bg-white">
       {/* Background gradient */}
@@ -33,13 +69,25 @@ const Hero = () => {
             </div>
           </div>
           
-          <div className="relative h-64 sm:h-80 lg:h-auto overflow-hidden rounded-xl shadow-xl">
-            <img 
-              src="https://images.unsplash.com/photo-1581595219315-a187dd40c322?q=80&w=1974&auto=format&fit=crop" 
-              alt="Advanced medical equipment" 
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-blue-900/20 to-transparent"></div>
+          <div className="relative h-64 sm:h-80 lg:h-full overflow-hidden rounded-xl shadow-xl">
+             <Carousel className="w-full h-full" setApi={setApi} opts={{ loop: true }}>
+               <CarouselContent className="h-full">
+                 {heroImages.map((image, index) => (
+                   <CarouselItem key={index} className="h-full">
+                     <div className="h-full w-full relative">
+                       <img 
+                         src={image.src}
+                         alt={image.alt}
+                         className="w-full h-full object-cover"
+                       />
+                       <div className="absolute inset-0 bg-gradient-to-t from-blue-900/20 to-transparent"></div>
+                     </div>
+                   </CarouselItem>
+                 ))}
+               </CarouselContent>
+               <CarouselPrevious className="left-4" />
+               <CarouselNext className="right-4" />
+             </Carousel>
           </div>
         </div>
       </div>
