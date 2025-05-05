@@ -12,7 +12,7 @@ export interface Product {
   gallery?: string[];
   featured?: boolean;
   new?: boolean;
-  price?: string;
+  price?: number;
   documents?: {
     name: string;
     link: string;

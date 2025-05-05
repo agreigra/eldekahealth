@@ -1,60 +1,51 @@
-
-import React, { useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@/components/ui/button';
+import BlogContentFields from "@/components/admin/blog-form/BlogContentFields";
+import BlogFormActions from "@/components/admin/blog-form/BlogFormActions";
+import BlogFormHeader from "@/components/admin/blog-form/BlogFormHeader";
+import BlogMainFields from "@/components/admin/blog-form/BlogMainFields";
 import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Checkbox } from '@/components/ui/checkbox';
-import { useToast } from '@/hooks/use-toast';
-import { useGetBlogByIdQuery, useAddBlogMutation, useUpdateBlogMutation } from '@/services/blogsApi';
-
-const formSchema = z.object({
-  title: z.string().min(5, "Title must be at least 5 characters"),
-  excerpt: z.string().min(10, "Excerpt must be at least 10 characters"),
-  content: z.string().min(50, "Content must be at least 50 characters"),
-  image: z.string().optional(),
-  category: z.string().min(1, "Category is required"),
-  popular: z.boolean().default(false),
-});
-
-type FormValues = z.infer<typeof formSchema>;
+  blogFormSchema,
+  BlogFormValues,
+} from "@/components/admin/blog-form/types";
+import FileUpload from "@/components/ui/FileUpload";
+import { Form } from "@/components/ui/form";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
+import { useToast } from "@/hooks/use-toast";
+import {
+  useAddBlogMutation,
+  useGetBlogByIdQuery,
+  useUpdateBlogMutation,
+} from "@/services/blogsApi";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useNavigate, useParams } from "react-router-dom";
 
 const BlogForm = () => {
   const { blogId } = useParams();
   const isEditing = !!blogId;
   const navigate = useNavigate();
   const { toast } = useToast();
-  
+
+  const [imageFiles, setImageFiles] = useState<File[]>([]);
+
   // RTK Query hooks
   const { data: blog, isLoading: isLoadingBlog } = useGetBlogByIdQuery(
-    blogId ?? '', 
+    blogId ?? "",
     { skip: !isEditing }
   );
   const [addBlog, { isLoading: isAdding }] = useAddBlogMutation();
   const [updateBlog, { isLoading: isUpdating }] = useUpdateBlogMutation();
 
   // Form setup
-  const form = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<BlogFormValues>({
+    resolver: zodResolver(blogFormSchema),
     defaultValues: {
-      title: '',
-      excerpt: '',
-      content: '',
-      image: '',
-      category: '',
-      popular: false
+      title: "",
+      excerpt: "",
+      content: "",
+      images: [],
+      category: "",
+      popular: false,
     },
   });
 
@@ -63,22 +54,30 @@ const BlogForm = () => {
     if (isEditing && blog) {
       form.reset({
         title: blog.title,
-        excerpt: blog.excerpt || '',
-        content: blog.content || '',
-        image: blog.image || '',
-        category: blog.category || '',
+        excerpt: blog.excerpt || "",
+        content: blog.content || "",
+        images: blog.images || [],
+        category: blog.category || "",
         popular: blog.popular || false,
       });
     }
   }, [blog, form, isEditing]);
 
-  const onSubmit = async (values: FormValues) => {
+  const handleImagesChange = (files: File[]) => {
+    setImageFiles(files);
+  };
+
+  const onSubmit = async (values: BlogFormValues) => {
+    console.log(values);
+
     try {
+      const formData = new FormData();
+      imageFiles.forEach((file) => formData.append("files", file)); // Your files
+      formData.append("data", JSON.stringify(values));
       if (isEditing && blogId) {
         await updateBlog({
-          id: blogId,
-          ...values,
-          date: blog?.date || new Date().toLocaleDateString(),
+          id: Number(blogId),
+          body: formData,
         }).unwrap();
         toast({
           title: "Blog post updated",
@@ -86,182 +85,54 @@ const BlogForm = () => {
         });
       } else {
         await addBlog({
-          ...values,
-          date: new Date().toLocaleDateString(),
+          body: formData,
         }).unwrap();
         toast({
           title: "Blog post created",
           description: "The new blog post has been successfully created.",
         });
       }
-      navigate('/admin/blogs');
+      navigate("/admin/blogs");
     } catch (error) {
       toast({
         title: "Error",
-        description: `Failed to ${isEditing ? 'update' : 'create'} blog post. Please try again.`,
+        description: `Failed to ${
+          isEditing ? "update" : "create"
+        } blog post. Please try again.`,
         variant: "destructive",
       });
     }
   };
 
   if (isEditing && isLoadingBlog) {
-    return (
-      <div className="flex justify-center items-center py-8">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-medical-600"></div>
-        <span className="ml-2">Loading blog post...</span>
-      </div>
-    );
+    return <LoadingSpinner message="Loading blog post..." />;
   }
 
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-bold tracking-tight">
-          {isEditing ? 'Edit Blog Post' : 'Create New Blog Post'}
-        </h2>
-        <p className="text-muted-foreground mt-2">
-          {isEditing ? 'Update the blog post details below.' : 'Fill in the details to create a new blog post.'}
-        </p>
-      </div>
+      <BlogFormHeader isEditing={isEditing} />
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <FormField
-            control={form.control}
-            name="title"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Title</FormLabel>
-                <FormControl>
-                  <Input placeholder="Enter blog post title" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* <FormField
-              control={form.control}
-              name="author"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Author</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Author name" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            /> */}
-
-            <FormField
-              control={form.control}
-              name="category"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Category</FormLabel>
-                  <FormControl>
-                    <Input placeholder="e.g., Medical Technology" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="image"
-              render={({ field }) => (
-                <FormItem className="col-span-1 md:col-span-2">
-                  <FormLabel>Featured Image URL</FormLabel>
-                  <FormControl>
-                    <Input placeholder="https://example.com/image.jpg" {...field} />
-                  </FormControl>
-                  <FormDescription>Enter a direct URL to the blog post featured image</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
+          <BlogContentFields control={form.control} />
+          <BlogMainFields control={form.control} />
+          {/* Add the FileUpload component */}
+          <div className="space-y-2">
+            <h3 className="text-lg font-medium">Blog Images</h3>
+            <FileUpload
+              id="blog-images"
+              label="Upload Images"
+              description="Upload one or more images for this blog post"
+              multiple={true}
+              accept="image/*"
+              onChange={handleImagesChange}
+              value={form.getValues("images")}
             />
           </div>
-
-          <FormField
-            control={form.control}
-            name="excerpt"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Excerpt</FormLabel>
-                <FormControl>
-                  <Textarea 
-                    placeholder="Brief summary of the blog post..." 
-                    className="min-h-20"
-                    {...field} 
-                  />
-                </FormControl>
-                <FormDescription>A short summary displayed on the blog listing page</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
+          <BlogFormActions
+            isEditing={isEditing}
+            isLoading={isAdding || isUpdating}
           />
-
-          <FormField
-            control={form.control}
-            name="content"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Content</FormLabel>
-                <FormControl>
-                  <Textarea 
-                    placeholder="Enter full blog post content..." 
-                    className="min-h-64"
-                    {...field} 
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="popular"
-            render={({ field }) => (
-              <FormItem className="flex flex-row items-start space-x-3 space-y-0">
-                <FormControl>
-                  <Checkbox
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                  />
-                </FormControl>
-                <div className="space-y-1 leading-none">
-                  <FormLabel>Mark as Popular</FormLabel>
-                  <FormDescription>
-                    Highlight this post as popular or trending
-                  </FormDescription>
-                </div>
-              </FormItem>
-            )}
-          />
-
-          <div className="flex justify-end space-x-4">
-            <Button 
-              type="button" 
-              variant="outline" 
-              onClick={() => navigate('/admin/blogs')}
-            >
-              Cancel
-            </Button>
-            <Button 
-              type="submit" 
-              className="bg-medical-600 hover:bg-medical-700"
-              disabled={isAdding || isUpdating}
-            >
-              {(isAdding || isUpdating) && (
-                <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-b-transparent"></div>
-              )}
-              {isEditing ? 'Update Blog Post' : 'Create Blog Post'}
-            </Button>
-          </div>
         </form>
       </Form>
     </div>

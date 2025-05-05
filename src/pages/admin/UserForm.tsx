@@ -29,6 +29,7 @@ import {
   useUpdateUserMutation,
 } from "@/services/userApi";
 import { User } from "@/types/User";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
 
 const userFormSchema = z.object({
   firstName: z.string().min(2, { message: "First name must be at least 2 characters." }),
@@ -130,12 +131,7 @@ const UserForm = () => {
   };
 
   if (isLoading && isEditMode) {
-    return (
-      <div className="flex items-center justify-center p-12">
-        <Loader2 className="h-8 w-8 animate-spin text-medical-600" />
-        <span className="ml-2">Loading user data...</span>
-      </div>
-    );
+    return <LoadingSpinner message="Loading user data..." />;
   }
 
   return (
@@ -232,6 +228,7 @@ const UserForm = () => {
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
+                      value={field.value}
                     >
                       <FormControl>
                         <SelectTrigger>

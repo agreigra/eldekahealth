@@ -27,23 +27,23 @@ export const blogsApi = createApi({
       providesTags: (_result, _error, id) => [{ type: "Blogs", id }],
     }),
 
-    addBlog: builder.mutation<BlogPost, Partial<BlogPost>>({
-      query: (blog) => {
+    addBlog: builder.mutation<BlogPost, { body: FormData }>({
+      query: ({ body }) => {
         return {
           url: "/blogs",
           method: "POST",
-          body: blog,
+          body: body,
         };
       },
       invalidatesTags: ["Blogs"],
     }),
 
-    updateBlog: builder.mutation<BlogPost, Partial<BlogPost> & { id: string }>({
-      query: (blog) => {
+    updateBlog: builder.mutation<BlogPost, { id: number; body: FormData }>({
+      query: ({id, body}) => {
         return {
-          url: `/blogs/${blog.id}`,
+          url: `/blogs/${id}`,
           method: "PUT",
-          body: blog,
+          body: body,
         };
       },
       invalidatesTags: (_result, _error, { id }) => [{ type: "Blogs", id }],

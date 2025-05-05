@@ -5,7 +5,8 @@ export interface BlogPost {
     title: string;
     excerpt: string;
     content: string;
-    image: string;
+    image: string; // Main featured image
+    images?: string[]; // Gallery of images
     date: string;
     author?: User;
     category: string;
