@@ -1,11 +1,11 @@
 
 const PartnersShowcase = () => {
   const partners = [
-    { name: "Stryker", logo: "https://www.stryker.com/etc.clientlibs/stryker/clientlibs/clientlib-all/resources/imgs/stryker-logo/stryker-logo.svg" },
-    { name: "Medtronic", logo: "https://www.medtronic.com/content/dam/medtronic-com/global/Corporate/m-logo.png" },
-    { name: "Smith & Nephew", logo: "https://www.smith-nephew.com/global/assets/images/smith-and-nephew-logo.svg" },
-    { name: "Siemens Healthineers", logo: "https://www.siemens-healthineers.com/presets/images/landingpage/logo.svg" },
-    { name: "GE Healthcare", logo: "https://www.gehealthcare.com/-/jssmedia/gehc/global/logos/ge-healthcare-logo.jpg" },
+    { name: "Stryker", logo: "assets/images/stryker.webp" },
+    { name: "Medtronic", logo: "assets/images/medtronic.png" },
+    { name: "Smith & Nephew", logo: "assets/images/smithNephew.webp" },
+    { name: "Siemens Healthineers", logo: "assets/images/siemens.jpg" },
+    { name: "GE Healthcare", logo: "/assets/images/gehealthcare.png" },
   ];
 
   return (
